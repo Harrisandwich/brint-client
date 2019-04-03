@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/utils/is-option-str.js"],"names":["str"],"mappings":";;;;;;kBAAe;AAAA,SAAOA,IAAI,CAAJ,MAAW,GAAlB;AAAA,C","file":"is-option-str.js","sourcesContent":["export default str => str[0] === '-'\n"]}
