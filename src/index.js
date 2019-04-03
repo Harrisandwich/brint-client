@@ -25,6 +25,7 @@ dotenv.load()
 *
 */
 let connected = false
+let p = ''
 const socketUrl = false ? process.env.HEROKU_SERVER_URL : process.env.LOCAL_SERVER_URL
 const socket = io(socketUrl)
 const rl = readline.createInterface({
@@ -48,28 +49,42 @@ rl.on('line', (input) => {
 })
 
 socket.on('command-response', (resp) => {
+  rl.setPrompt('')
+  rl.prompt()
   console.log(resp.output)
+  rl.setPrompt(p)
   rl.prompt()
 })
 
 socket.on('message', (resp) => {
+  rl.setPrompt('')
+  rl.prompt()
   console.log(`\n${resp.displayName}: ${resp.output}\n`)
+  rl.setPrompt(p)
   rl.prompt()
 })
 
 socket.on('error', (resp) => {
+  rl.setPrompt('')
+  rl.prompt()
   console.log(resp.output)
+  rl.setPrompt(p)
   rl.prompt()
 })
 
 socket.on('set-appstate', (resp) => {
   console.log('Remember: You can use "/help" to see a list of available commands!')
-  rl.setPrompt(resp.prompt)
+  p = resp.prompt
+  rl.setPrompt(p)
   rl.prompt()
 })
 
 socket.on('notification', (resp) => {
+  rl.setPrompt('')
+  rl.prompt()
   console.log(resp.msg)
+  rl.setPrompt(p)
+  rl.prompt()
 })
 
 socket.on('debug', (resp) => {
